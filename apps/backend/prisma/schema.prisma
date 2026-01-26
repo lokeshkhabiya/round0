@@ -1,0 +1,306 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated"
+  moduleFormat = "esm"
+  runtime = "nodejs"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model user {
+  id         String    @id @default(cuid())
+  email      String    @unique
+  name       String
+  imageUrl   String?
+  role       USER_ROLE
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  job_descriptions       job_description[]
+  candidate_applications job_application[]
+  candidate_profile      candidate_profile?
+  recruiter_profile      recruiter_profile?
+  mentor_sessions        mentor_session[] // New relation for mentor sessions
+}
+
+model candidate_profile {
+  id String @id @default(cuid())
+  candidate_id String
+  candidate user @relation(fields: [candidate_id], references: [id])
+  name String
+  email String
+  phone String
+  location String
+  linkedin_url String?
+  github_url String?
+  portfolio_url String?
+  resume_url String?
+  skills String[]
+  experience String[]
+  education String[]
+  certifications String[]
+  projects String[]
+  achievements String[]
+  interests String[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([candidate_id])
+}
+
+model recruiter_profile {
+  id String @id @default(cuid())
+  recruiter_id String
+  recruiter user @relation(fields: [recruiter_id], references: [id])
+  company_name String
+  company_logo String?
+  company_website String?
+  company_description String?
+  company_location String?
+  company_size Int?
+  company_industry String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([recruiter_id])
+}
+
+model job_description {
+  id           String   @id @default(cuid())
+  recruiter_id String
+  recruiter    user     @relation(fields: [recruiter_id], references: [id])
+  title        String
+  description  String
+  jd_payload   Json
+  is_mock      Boolean  @default(false)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  candidate_applications job_application[]
+}
+
+model job_application {
+  id                 String                 @id @default(cuid())
+  candidate_id       String
+  candidate          user                   @relation(fields: [candidate_id], references: [id])
+  job_description_id String
+  job_description    job_description        @relation(fields: [job_description_id], references: [id])
+  applied_at         DateTime               @default(now())
+  status             JOB_APPLICATION_STATUS @default(pending)
+  created_at         DateTime               @default(now())
+  updated_at         DateTime               @updatedAt
+
+  interview_session interview_session[]
+}
+
+model interview_session {
+  id             String          @id @default(cuid())
+  application_id String
+  application    job_application @relation(fields: [application_id], references: [id])
+  created_at     DateTime        @default(now())
+  updated_at     DateTime        @updatedAt
+
+  interview_round   interview_round[]
+  session_recording session_recording[]
+  usage_log         usage_log[]
+  mentor_sessions   mentor_session[] // New relation for linking mentor sessions to interviews
+}
+
+model interview_round {
+  id                  String                 @id @default(cuid())
+  session_id          String
+  session             interview_session      @relation(fields: [session_id], references: [id])
+  round_number        Int
+  round_type          INTERVIEW_ROUND_TYPE   @default(skill_assessment)
+  created_at          DateTime               @default(now())
+  updated_at          DateTime               @updatedAt
+  started_at          DateTime?
+  end_at              DateTime?
+  status              INTERVIEW_ROUND_STATUS @default(pending)
+  spoken_language     USER_LANGUAGE?         @default(en)
+  zero_score          Int?
+  score_components    Json? // AI scoring breakdown
+  ai_summary          String? // AI-generated summary
+  report_data         Json?
+  report_generated_at DateTime?
+  recruiter_decision  RECRUITER_DECISION     @default(pending)
+  decision_at         DateTime?
+  agent_session_id    String? // ElevenLabs agent session ID
+  messages            message[]
+  tool_results        tool_result[]
+
+  session_recording session_recording[]
+  @@index([session_id, round_number])
+}
+
+model message {
+  id              String          @id @default(cuid())
+  round_id        String
+  round           interview_round @relation(fields: [round_id], references: [id])
+  messenger_role  MESSENGER_ROLE
+  content         Json
+  message_type    MESSAGE_TYPE    @default(text)
+  created_at      DateTime        @default(now())
+  updated_at      DateTime        @updatedAt
+  conversation_id String? // ElevenLabs conversation ID
+  attachments     attachment[]
+
+  @@index([round_id, created_at])
+}
+
+model attachment {
+  id         String          @id @default(cuid())
+  message_id String
+  message    message         @relation(fields: [message_id], references: [id])
+  url        String
+  kind       ATTACHMENT_KIND
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+}
+
+model tool_result {
+  id          String          @id @default(cuid())
+  round_id    String
+  round       interview_round @relation(fields: [round_id], references: [id])
+  tool_name   TOOL_TYPE
+  input_data  Json // Tool input/instructions
+  output_data Json // Tool result/submission
+  passed      Boolean? // AI evaluation result
+  metadata    Json? // Additional tool metadata
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
+
+  @@index([round_id, tool_name])
+}
+
+model session_recording {
+  id         String            @id @default(cuid())
+  round_id   String
+  round      interview_round   @relation(fields: [round_id], references: [id])
+  session_id String
+  session    interview_session @relation(fields: [session_id], references: [id])
+  urls       String[]
+  created_at DateTime          @default(now())
+  updated_at DateTime          @updatedAt
+
+  @@unique([session_id, round_id])
+}
+
+model usage_log {
+  id                String            @id @default(cuid())
+  session_id        String
+  session           interview_session @relation(fields: [session_id], references: [id])
+  prompt_tokens     Int
+  completion_tokens Int
+  total_tokens      Int
+  model_name        String? // Track which model was used
+  service_type      SERVICE_TYPE      @default(openai)
+  created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
+
+  @@index([session_id, created_at])
+}
+
+model mentor_session {
+  id                  String            @id @default(cuid())
+  candidate_id        String
+  candidate           user              @relation(fields: [candidate_id], references: [id])
+  interview_session_id String?          // Optional: Link to a specific interview for context-specific mentoring
+  interview_session   interview_session? @relation(fields: [interview_session_id], references: [id])
+  title               String?           // Optional: e.g., "Post-Interview Feedback Session"
+  created_at          DateTime          @default(now())
+  updated_at          DateTime          @updatedAt
+
+  mentor_messages     mentor_message[]  // Chat history for this session
+}
+
+model mentor_message {
+  id              String            @id @default(cuid())
+  session_id      String
+  session         mentor_session    @relation(fields: [session_id], references: [id])
+  messenger_role  MESSENGER_ROLE    // Reusing existing enum (add 'ai_mentor' below if needed)
+  content         Json              // Flexible for text, metadata, etc.
+  message_type    MESSAGE_TYPE      @default(text) // Reusing existing enum
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+
+  @@index([session_id, created_at]) // For efficient querying of chat history
+}
+
+enum USER_ROLE {
+  recruiter
+  candidate
+  admin
+}
+
+enum JOB_APPLICATION_STATUS {
+  pending
+  invited
+  in_progress
+  completed
+  accepted
+  rejected
+}
+
+enum INTERVIEW_ROUND_TYPE {
+  skill_assessment
+  behavioral
+  system_design
+}
+
+enum RECRUITER_DECISION {
+  pending
+  pass
+  fail
+}
+
+enum MESSENGER_ROLE {
+  ai_interviewer
+  candidate
+  system
+  ai_mentor // New: For the LLM mentor responses
+}
+
+enum ATTACHMENT_KIND {
+  image
+  audio
+  video
+  code
+  document
+}
+
+enum INTERVIEW_ROUND_STATUS {
+  pending
+  started
+  completed
+  error
+}
+
+enum USER_LANGUAGE {
+  en
+  hi
+}
+
+enum MESSAGE_TYPE {
+  text
+  audio
+  tool_call
+  tool_result
+  feedback
+}
+
+enum TOOL_TYPE {
+  code_editor
+  whiteboard
+  file_upload
+  screen_share
+  feedback
+}
+
+enum SERVICE_TYPE {
+  openai
+  elevenlabs
+  system
+}
