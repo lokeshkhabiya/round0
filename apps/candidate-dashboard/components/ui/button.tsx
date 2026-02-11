@@ -10,9 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "relative overflow-hidden bg-primary text-primary-foreground shadow-sm ring-1 ring-inset ring-white/10 hover:brightness-[1.02] active:brightness-[0.98] before:absolute before:inset-0 before:bg-[linear-gradient(180deg,rgba(255,255,255,0.40),transparent_55%)] before:opacity-70 hover:before:opacity-90 before:transition-opacity",
+          "bg-primary text-primary-foreground shadow-sm ring-1 ring-inset ring-white/10 hover:brightness-[1.02] active:brightness-[0.98]",
         destructive:
-          "relative overflow-hidden bg-destructive text-destructive-foreground shadow-sm ring-1 ring-inset ring-white/10 hover:brightness-[1.02] active:brightness-[0.98] focus-visible:ring-destructive/25 dark:focus-visible:ring-destructive/35 dark:bg-destructive/70 before:absolute before:inset-0 before:bg-[linear-gradient(180deg,rgba(255,255,255,0.25),transparent_60%)] before:opacity-70 hover:before:opacity-90 before:transition-opacity",
+          "bg-destructive text-destructive-foreground shadow-sm ring-1 ring-inset ring-white/10 hover:brightness-[1.02] active:brightness-[0.98] focus-visible:ring-destructive/25 dark:focus-visible:ring-destructive/35 dark:bg-destructive/70",
         outline:
           "border border-border/70 bg-card/40 shadow-sm backdrop-blur-sm hover:bg-accent/60 hover:text-accent-foreground dark:bg-input/25 dark:border-input/60 dark:hover:bg-input/45",
         secondary:

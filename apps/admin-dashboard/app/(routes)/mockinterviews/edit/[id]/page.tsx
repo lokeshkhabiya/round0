@@ -252,7 +252,7 @@ export default function EditMockInterviewPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-white">
+      <div className="border-b border-border/55 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
@@ -362,7 +362,7 @@ export default function EditMockInterviewPage() {
                       className={`p-4 rounded-lg border-2 transition-all text-left ${
                         roleCategory === option.value
                           ? "border-primary bg-primary/5"
-                          : "border-border hover:border-gray-400"
+                          : "border-border hover:border-ring/50"
                       }`}
                     >
                       <option.icon
@@ -390,7 +390,7 @@ export default function EditMockInterviewPage() {
                       className={`p-4 rounded-lg border-2 transition-all text-left ${
                         difficultyLevel === option.value
                           ? "border-primary bg-primary/5"
-                          : "border-border hover:border-gray-400"
+                          : "border-border hover:border-ring/50"
                       }`}
                     >
                       <p className="font-medium text-sm">{option.label}</p>
@@ -414,7 +414,7 @@ export default function EditMockInterviewPage() {
                       className={`p-4 rounded-lg border-2 transition-all text-left flex items-start gap-3 ${
                         interviewTools.includes(tool.value)
                           ? "border-primary bg-primary/5"
-                          : "border-border hover:border-gray-400"
+                          : "border-border hover:border-ring/50"
                       }`}
                     >
                       <tool.icon
@@ -634,7 +634,7 @@ export default function EditMockInterviewPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-green-500 hover:bg-green-600"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   {isSubmitting ? "Saving..." : "Save Changes"}
                 </Button>

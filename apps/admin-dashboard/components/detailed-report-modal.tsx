@@ -69,9 +69,9 @@ const DetailedReportModal = ({
     }, [round_id, token, isOpen]);
 
     const getScoreColor = (score: number) => {
-        if (score >= 80) return "text-green-600";
-        if (score >= 60) return "text-yellow-600";
-        return "text-red-600";
+        if (score >= 80) return "text-primary";
+        if (score >= 60) return "text-foreground";
+        return "text-destructive";
     };
 
     const getScoreComponents = () => {
@@ -207,8 +207,8 @@ const DetailedReportModal = ({
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                    <p className="text-blue-900 leading-relaxed">
+                                <div className="bg-primary/8 border border-primary/25 rounded-xl p-4">
+                                    <p className="text-foreground leading-relaxed">
                                         {reportData.report.ai_summary}
                                     </p>
                                 </div>
@@ -231,15 +231,15 @@ const DetailedReportModal = ({
                                             {Object.entries(reportDataDetails).filter(([key]) => 
                                                 key !== 'comments' && key !== 'overall_score' && typeof reportDataDetails[key] === 'string'
                                             ).map(([key, value]) => (
-                                                <div key={key} className="border border-gray-200 rounded-lg p-4 bg-white">
+                                                <div key={key} className="border border-border/60 rounded-2xl p-4 bg-card/76">
                                                     <div className="flex items-center space-x-2 mb-3">
                                                         {componentIcons[key as keyof typeof componentIcons]}
-                                                        <h4 className="font-semibold text-lg capitalize text-gray-800">
+                                                        <h4 className="font-semibold text-lg capitalize text-foreground">
                                                             {key.replace('_', ' ')}
                                                         </h4>
                                                     </div>
-                                                    <div className="bg-gray-50 rounded-md p-3 border-l-4 border-blue-500">
-                                                        <p className="text-gray-700 leading-relaxed">
+                                                    <div className="bg-muted/40 rounded-xl p-3 border-l-4 border-primary/45">
+                                                        <p className="text-foreground leading-relaxed">
                                                             {value as string}
                                                         </p>
                                                     </div>
@@ -257,7 +257,7 @@ const DetailedReportModal = ({
                                                     {Object.entries(reportDataDetails).filter(([key, value]) => 
                                                         key !== 'comments' && key !== 'overall_score' && typeof value === 'number'
                                                     ).map(([key, value]) => (
-                                                        <div key={key} className="bg-gray-50 rounded-lg p-3">
+                                                        <div key={key} className="bg-muted/40 rounded-xl p-3 border border-border/55">
                                                             <div className="flex items-center justify-between mb-2">
                                                                 <span className="text-sm font-medium capitalize">
                                                                     {key.replace('_', ' ')}
@@ -275,7 +275,7 @@ const DetailedReportModal = ({
 
                                         {/* Overall Score from Report Data */}
                                         {reportDataDetails.overall_score && (
-                                            <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4">
+                                            <div className="bg-card/78 border border-border/60 rounded-xl p-4">
                                                 <div className="flex items-center justify-between">
                                                     <span className="font-semibold text-lg">Overall Assessment Score</span>
                                                     <span className={`text-2xl font-bold ${getScoreColor(reportDataDetails.overall_score)}`}>
@@ -288,9 +288,9 @@ const DetailedReportModal = ({
 
                                         {/* Comments */}
                                         {reportDataDetails.comments && (
-                                            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                                                <h4 className="font-semibold text-amber-800 mb-2">Additional Assessment Comments</h4>
-                                                <p className="text-amber-900 leading-relaxed">
+                                            <div className="bg-secondary/55 border border-border/60 rounded-xl p-4">
+                                                <h4 className="font-semibold text-foreground mb-2">Additional Assessment Comments</h4>
+                                                <p className="text-foreground leading-relaxed">
                                                     {reportDataDetails.comments}
                                                 </p>
                                             </div>
@@ -316,7 +316,7 @@ const DetailedReportModal = ({
                                         <div className="w-full">
                                             <video 
                                                 controls 
-                                                className="w-full max-h-96 rounded-lg border border-gray-200"
+                                                className="w-full max-h-96 rounded-xl border border-border/60"
                                                 preload="metadata"
                                             >
                                                 <source src={reportData.videoAndAudioData?.video} type="video/mp4" />

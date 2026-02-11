@@ -17,7 +17,7 @@ export default function Home() {
 	}, [isAuthenticated, router]);
 
 	return (
-		<div className="flex justify-center items-center h-screen bg-background">
+		<div className="flex justify-center items-center h-screen app-surface">
 			<div className="flex gap-1">
 				<div
 					className="w-3 h-3 rounded-full bg-primary animate-bounce"

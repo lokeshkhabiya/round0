@@ -319,7 +319,7 @@ const JoinInterview = ({
 										<Camera className="w-6 h-6 text-white/30" />
 									</div>
 								)}
-								<div className="absolute bottom-0 left-0 right-0 px-2.5 py-1.5 bg-gradient-to-t from-black/65 to-transparent">
+								<div className="absolute bottom-0 left-0 right-0 px-2.5 py-1.5 bg-black/65">
 									<div className="flex items-center justify-between">
 										<span className="text-[11px] text-white/80 font-medium">You</span>
 										{isMicOn ? (
@@ -334,7 +334,7 @@ const JoinInterview = ({
 
 						{/* Controls bar */}
 						<div className="absolute bottom-0 left-0 right-0 z-20">
-							<div className="flex justify-center pb-6 pt-16 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent">
+							<div className="flex justify-center pb-6 pt-16 bg-slate-950/90">
 								<div className="flex items-center gap-3 px-6 py-3 rounded-2xl interview-panel">
 									<ControlButton
 										active={isCameraOn}

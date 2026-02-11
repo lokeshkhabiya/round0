@@ -108,7 +108,7 @@ export function CandidateProfile({ candidate, onBack, onViewJob, onViewRound}: C
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-white">
+      <div className="border-b border-border/55 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-4 mb-4">
             <Button variant="outline" size="sm" onClick={onBack} className="flex items-center gap-2 bg-transparent">
@@ -189,32 +189,32 @@ export function CandidateProfile({ candidate, onBack, onViewJob, onViewRound}: C
                     <div className="text-2xl font-bold text-primary">{stats.total}</div>
                     <div className="text-xs text-muted-foreground">Total Applications</div>
                   </div>
-                  <div className="text-center p-3 bg-yellow-50 rounded-lg">
-                    <div className="text-2xl font-bold text-yellow-600">{stats.pending}</div>
+                  <div className="text-center p-3 bg-card/75 border border-border/60 rounded-lg">
+                    <div className="text-2xl font-bold text-foreground">{stats.pending}</div>
                     <div className="text-xs text-muted-foreground">Pending</div>
                   </div>
                 </div>
 
                 {/* Invited and In Progress */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">{stats.invited}</div>
+                  <div className="text-center p-3 bg-primary/12 rounded-lg border border-primary/25">
+                    <div className="text-2xl font-bold text-foreground">{stats.invited}</div>
                     <div className="text-xs text-muted-foreground">Invited</div>
                   </div>
-                  <div className="text-center p-3 bg-orange-50 rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">{stats.inProgress}</div>
+                  <div className="text-center p-3 bg-secondary/80 rounded-lg border border-border/60">
+                    <div className="text-2xl font-bold text-secondary-foreground">{stats.inProgress}</div>
                     <div className="text-xs text-muted-foreground">In Progress</div>
                   </div>
                 </div>
 
                 {/* Completed and Interview Stats */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">{stats.completed}</div>
+                  <div className="text-center p-3 bg-accent/15 rounded-lg border border-accent/30">
+                    <div className="text-2xl font-bold text-accent-foreground">{stats.completed}</div>
                     <div className="text-xs text-muted-foreground">Completed</div>
                   </div>
-                  <div className="text-center p-3 bg-indigo-50 rounded-lg">
-                    <div className="text-2xl font-bold text-indigo-600">{interviewStats.totalInterviews}</div>
+                  <div className="text-center p-3 bg-muted/55 rounded-lg border border-border/50">
+                    <div className="text-2xl font-bold text-foreground">{interviewStats.totalInterviews}</div>
                     <div className="text-xs text-muted-foreground">Total Interviews</div>
                   </div>
                 </div>
@@ -223,15 +223,15 @@ export function CandidateProfile({ candidate, onBack, onViewJob, onViewRound}: C
                 {(stats.accepted > 0 || stats.rejected > 0) && (
                   <div className="grid grid-cols-2 gap-4">
                     {stats.accepted > 0 && (
-                      <div className="text-center p-3 bg-green-100 rounded-lg border border-green-200">
-                        <div className="text-2xl font-bold text-green-700">{stats.accepted}</div>
-                        <div className="text-xs text-green-600">Accepted</div>
+                      <div className="text-center p-3 bg-primary/15 rounded-lg border border-primary/30">
+                        <div className="text-2xl font-bold text-foreground">{stats.accepted}</div>
+                        <div className="text-xs text-muted-foreground">Accepted</div>
                       </div>
                     )}
                     {stats.rejected > 0 && (
-                      <div className="text-center p-3 bg-red-100 rounded-lg border border-red-200">
-                        <div className="text-2xl font-bold text-red-700">{stats.rejected}</div>
-                        <div className="text-xs text-red-600">Rejected</div>
+                      <div className="text-center p-3 bg-destructive/15 rounded-lg border border-destructive/30">
+                        <div className="text-2xl font-bold text-destructive">{stats.rejected}</div>
+                        <div className="text-xs text-muted-foreground">Rejected</div>
                       </div>
                     )}
                   </div>
@@ -301,4 +301,3 @@ export function CandidateProfile({ candidate, onBack, onViewJob, onViewRound}: C
     </div>
   )
 }
-

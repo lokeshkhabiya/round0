@@ -1,25 +1,36 @@
 "use client";
-import { BarChart, Briefcase, Calendar, ClipboardList, Home, Inbox, Search, Settings, ShieldUser, Users, TrendingUp } from "lucide-react"
+
+import {
+  Briefcase,
+  ClipboardList,
+  Home,
+  LogOut,
+  Settings,
+  ShieldUser,
+  TrendingUp,
+  Users,
+  Zap,
+} from "lucide-react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarHeader,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
+  useSidebar,
+} from "@/components/ui/sidebar";
+import { useAuthStore } from "@/stores/auth-store";
 
-// Menu items.
 const items = [
   {
-    title: "Home",
+    title: "Overview",
     url: "/dashboard",
     icon: Home,
   },
@@ -53,34 +64,57 @@ const items = [
     url: "/settings",
     icon: Settings,
   },
-]
+];
 
 export function AppSidebar() {
-  const pathname = usePathname()
-  
-  const isItemActive = (itemUrl: string) => {
-    if (itemUrl === "/dashboard") {
-      return pathname === "/dashboard" || pathname === "/"
+  const pathname = usePathname();
+  const { state } = useSidebar();
+  const { user, logout } = useAuthStore();
+
+  const isItemActive = (url: string) => {
+    if (url === "/dashboard") {
+      return pathname === "/dashboard" || pathname === "/";
     }
-    return pathname.startsWith(itemUrl)
-  }
+    return pathname.startsWith(url);
+  };
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = "/";
+  };
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon" >
-		<SidebarHeader>
-			<SidebarTrigger />
-		</SidebarHeader>
+    <Sidebar variant="inset" collapsible="icon">
+      <SidebarHeader>
+        <div className="flex items-center gap-2 px-2 py-2">
+          <div className="h-7 w-7 rounded-xl bg-primary/85 flex items-center justify-center">
+            <Zap className="h-3.5 w-3.5 text-primary-foreground" />
+          </div>
+          {state === "expanded" ? (
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold tracking-tight">Round0</p>
+              <p className="truncate text-[10px] text-muted-foreground uppercase tracking-[0.09em]">
+                Admin Console
+              </p>
+            </div>
+          ) : null}
+        </div>
+      </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Round0 Admin</SidebarGroupLabel>
-          <SidebarGroupContent className="mt-4">
-            <SidebarMenu className="flex flex-col gap-4">
+          <SidebarGroupContent className="mt-2">
+            <SidebarMenu className="flex flex-col gap-0.5">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className={`${isItemActive(item.url) ? "bg-gray-800 text-primary-foreground hover:bg-gray-700 hover:text-primary-foreground" : ""}`}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isItemActive(item.url)}
+                    tooltip={item.title}
+                  >
                     <Link href={item.url}>
-                      <item.icon />
-                      <span className="text-base">{item.title}</span>
+                      <item.icon className="h-4 w-4" />
+                      <span className="text-sm">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -89,6 +123,24 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter>
+        <div className="flex items-center gap-2 px-2 py-2">
+          <div className="h-7 w-7 rounded-full bg-muted text-muted-foreground text-xs font-medium inline-flex items-center justify-center">
+              {user?.email?.[0]?.toUpperCase() || "A"}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-medium truncate">{user?.email || "Admin User"}</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="p-1.5 rounded-lg hover:bg-muted/70 transition-colors"
+            title="Sign out"
+          >
+            <LogOut className="h-3.5 w-3.5 text-muted-foreground" />
+          </button>
+        </div>
+      </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

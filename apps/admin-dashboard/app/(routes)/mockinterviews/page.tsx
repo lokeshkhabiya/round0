@@ -54,10 +54,10 @@ const difficultyLabels: Record<string, string> = {
 };
 
 const difficultyColors: Record<string, string> = {
-  entry: "bg-green-100 text-green-800",
-  mid: "bg-blue-100 text-blue-800",
-  senior: "bg-orange-100 text-orange-800",
-  expert: "bg-red-100 text-red-800",
+  entry: "bg-primary/15 text-foreground border-primary/35",
+  mid: "bg-secondary/85 text-secondary-foreground border-border/70",
+  senior: "bg-accent/20 text-accent-foreground border-accent/35",
+  expert: "bg-destructive/20 text-destructive border-destructive/35",
 };
 
 const roleCategoryIcons: Record<string, React.ReactNode> = {
@@ -134,7 +134,7 @@ export default function MockInterviewsPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-white">
+      <div className="border-b border-border/55 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
@@ -174,7 +174,7 @@ export default function MockInterviewsPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <Code className="h-8 w-8 text-blue-600" />
+                <Code className="h-8 w-8 text-primary" />
                 <div>
                   <p className="text-2xl font-bold">{stats.engineering}</p>
                   <p className="text-sm text-muted-foreground">Engineering</p>
@@ -185,7 +185,7 @@ export default function MockInterviewsPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <BarChart3 className="h-8 w-8 text-purple-600" />
+                <BarChart3 className="h-8 w-8 text-accent" />
                 <div>
                   <p className="text-2xl font-bold">{stats.data_analytics}</p>
                   <p className="text-sm text-muted-foreground">
@@ -198,7 +198,7 @@ export default function MockInterviewsPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <Briefcase className="h-8 w-8 text-green-600" />
+                <Briefcase className="h-8 w-8 text-foreground" />
                 <div>
                   <p className="text-2xl font-bold">{stats.business}</p>
                   <p className="text-sm text-muted-foreground">Business</p>
@@ -254,12 +254,12 @@ export default function MockInterviewsPage() {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <Card key={i} className="animate-pulse">
                 <CardHeader>
-                  <div className="h-6 bg-gray-200 rounded w-3/4" />
+                  <div className="h-6 bg-muted rounded w-3/4" />
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <div className="h-4 bg-gray-200 rounded w-full" />
-                    <div className="h-4 bg-gray-200 rounded w-2/3" />
+                    <div className="h-4 bg-muted rounded w-full" />
+                    <div className="h-4 bg-muted rounded w-2/3" />
                   </div>
                 </CardContent>
               </Card>
@@ -316,6 +316,7 @@ export default function MockInterviewsPage() {
                     )}
                     {interview.jd_payload?.difficulty_level && (
                       <Badge
+                        variant="outline"
                         className={`text-xs ${
                           difficultyColors[
                             interview.jd_payload.difficulty_level

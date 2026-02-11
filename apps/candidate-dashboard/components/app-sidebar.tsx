@@ -23,7 +23,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
-  SidebarTrigger,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,

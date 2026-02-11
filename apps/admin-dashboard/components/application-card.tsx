@@ -21,15 +21,15 @@ export function ApplicationCard({ application, onViewJob, onViewRound }: Applica
   const getRoundTypeColor = (roundType: string) => {
     switch (roundType.toLowerCase()) {
       case "skill_assessment":
-        return "bg-blue-50 text-blue-700 border-blue-200"
+        return "bg-primary/15 text-foreground border-primary/35"
       case "behavioural":
-        return "bg-purple-50 text-purple-700 border-purple-200"
+        return "bg-secondary/85 text-secondary-foreground border-border/70"
       case "technical":
-        return "bg-green-50 text-green-700 border-green-200"
+        return "bg-accent/20 text-accent-foreground border-accent/35"
       case "hr":
-        return "bg-orange-50 text-orange-700 border-orange-200"
+        return "bg-muted/75 text-foreground border-border/70"
       default:
-        return "bg-gray-50 text-gray-700 border-gray-200"
+        return "bg-card/70 text-muted-foreground border-border/70"
     }
   }
 

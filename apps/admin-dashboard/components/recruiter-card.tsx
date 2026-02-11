@@ -23,11 +23,11 @@ export function RecruiterCard({ recruiter, onViewProfile, onViewCompany }: Recru
   }
 
   const getCompanySizeColor = (size: number) => {
-    if (size <= 10) return "bg-purple-100 text-purple-800"
-    if (size <= 50) return "bg-blue-100 text-blue-800"
-    if (size <= 200) return "bg-green-100 text-green-800"
-    if (size <= 1000) return "bg-orange-100 text-orange-800"
-    return "bg-red-100 text-red-800"
+    if (size <= 10) return "bg-secondary/85 text-secondary-foreground border-border/70"
+    if (size <= 50) return "bg-primary/15 text-foreground border-primary/35"
+    if (size <= 200) return "bg-accent/20 text-accent-foreground border-accent/35"
+    if (size <= 1000) return "bg-muted/75 text-foreground border-border/70"
+    return "bg-card/80 text-muted-foreground border-border/70"
   }
 
   const formatWebsiteUrl = (website: string) => {
@@ -110,7 +110,7 @@ export function RecruiterCard({ recruiter, onViewProfile, onViewCompany }: Recru
               <img
                 src={recruiter.recruiter_profile.company_logo || "/placeholder.svg"}
                 alt={`${recruiter.recruiter_profile.company_name || 'Company'} logo`}
-                className="w-16 h-16 object-contain rounded-lg border bg-white p-2"
+                className="w-16 h-16 object-contain rounded-xl border border-border/60 bg-card/80 p-2"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement
                   target.style.display = "none"
@@ -142,7 +142,7 @@ export function RecruiterCard({ recruiter, onViewProfile, onViewCompany }: Recru
                     </Badge>
                   )}
                   {recruiter.recruiter_profile.company_size && (
-                    <Badge className={`text-xs ${getCompanySizeColor(recruiter.recruiter_profile.company_size)}`}>
+                    <Badge variant="outline" className={`text-xs ${getCompanySizeColor(recruiter.recruiter_profile.company_size)}`}>
                       {getCompanySizeLabel(recruiter.recruiter_profile.company_size)}
                     </Badge>
                   )}

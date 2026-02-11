@@ -6,6 +6,25 @@ import { createJwt } from "@/utils/jwt";
 import { useAuthStore } from "@/stores/auth-store";
 import { toast } from "sonner";
 
+const CallbackLoader = () => (
+	<div className="flex justify-center items-center h-screen app-surface">
+		<div className="flex gap-1">
+			<div
+				className="w-3 h-3 rounded-full bg-primary animate-bounce"
+				style={{ animationDelay: "0ms" }}
+			/>
+			<div
+				className="w-3 h-3 rounded-full bg-primary animate-bounce"
+				style={{ animationDelay: "150ms" }}
+			/>
+			<div
+				className="w-3 h-3 rounded-full bg-primary animate-bounce"
+				style={{ animationDelay: "300ms" }}
+			/>
+		</div>
+	</div>
+);
+
 function AuthCallbackComponent() {
 	const { setToken, userData } = useAuthStore();
 	const router = useRouter();
@@ -19,7 +38,7 @@ function AuthCallbackComponent() {
 			} = await supabase.auth.getSession();
 			if (sessionError) {
 				console.error("Error getting session:", sessionError);
-				router.push("/login");
+				router.push("/auth/login");
 			}
 			if (session) {
 				const { data, error } = await supabase.auth.getUser();
@@ -92,48 +111,12 @@ function AuthCallbackComponent() {
 		};
 		setRoleAndRedirect();
 	}, [router, searchParams]);
-	return (
-		<div className="flex justify-center items-center h-screen">
-			<div className="flex gap-1">
-				<div
-					className="w-3 h-3 rounded-full bg-white animate-bounce text-black"
-					style={{ animationDelay: "0ms" }}
-				></div>
-				<div
-					className="w-3 h-3 rounded-full bg-white animate-bounce text-black"
-					style={{ animationDelay: "150ms" }}
-				></div>
-				<div
-					className="w-3 h-3 rounded-full bg-white animate-bounce text-black"
-					style={{ animationDelay: "300ms" }}
-				></div>
-			</div>
-		</div>
-	);
+	return <CallbackLoader />;
 }
 
 export default function AuthCallback() {
 	return (
-		<Suspense
-			fallback={
-				<div className="flex justify-center items-center h-screen">
-					<div className="flex gap-1">
-						<div
-							className="w-3 h-3 rounded-full bg-white animate-bounce text-black"
-							style={{ animationDelay: "0ms" }}
-						></div>
-						<div
-							className="w-3 h-3 rounded-full bg-white animate-bounce text-black"
-							style={{ animationDelay: "150ms" }}
-						></div>
-						<div
-							className="w-3 h-3 rounded-full bg-white animate-bounce text-black"
-							style={{ animationDelay: "300ms" }}
-						></div>
-					</div>
-				</div>
-			}
-		>
+		<Suspense fallback={<CallbackLoader />}>
 			<AuthCallbackComponent />
 		</Suspense>
 	);

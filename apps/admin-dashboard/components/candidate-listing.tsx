@@ -120,7 +120,7 @@ export default function CandidatesListing() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-white">
+      <div className="border-b border-border/55 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-3 mb-4">
             <Users className="h-8 w-8 text-primary" />
@@ -133,7 +133,7 @@ export default function CandidatesListing() {
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         {/* Stats Overview */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-4 rounded-lg border">
+          <div className="bg-card/76 p-4 rounded-2xl border border-border/60 shadow-sm">
             <div className="flex items-center gap-2 mb-1">
               <Users className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium">Total Candidates</span>
@@ -141,25 +141,25 @@ export default function CandidatesListing() {
             <p className="text-2xl font-bold">{candidatesData?.length}</p>
           </div>
 
-          <div className="bg-white p-4 rounded-lg border">
+          <div className="bg-card/76 p-4 rounded-2xl border border-border/60 shadow-sm">
             <div className="flex items-center gap-2 mb-1">
-              <TrendingUp className="h-4 w-4 text-green-600" />
+              <TrendingUp className="h-4 w-4 text-accent" />
               <span className="text-sm font-medium">Total Applications</span>
             </div>
             <p className="text-2xl font-bold">{stats.totalApplications}</p>
           </div>
 
-          <div className="bg-white p-4 rounded-lg border">
+          <div className="bg-card/76 p-4 rounded-2xl border border-border/60 shadow-sm">
             <div className="flex items-center gap-2 mb-1">
-              <UserCheck className="h-4 w-4 text-blue-600" />
+              <UserCheck className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium">Highly Active</span>
             </div>
             <p className="text-2xl font-bold">{stats.highlyActive}</p>
           </div>
 
-          <div className="bg-white p-4 rounded-lg border">
+          <div className="bg-card/76 p-4 rounded-2xl border border-border/60 shadow-sm">
             <div className="flex items-center gap-2 mb-1">
-              <Users className="h-4 w-4 text-orange-600" />
+              <Users className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-medium">New Candidates</span>
             </div>
             <p className="text-2xl font-bold">{stats.newCandidates}</p>

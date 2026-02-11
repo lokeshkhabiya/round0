@@ -55,7 +55,7 @@ const JoinInterviewPreview = ({ error, hasPermission, isCameraOn, isMicOn, isLoa
                   <Camera className="w-10 h-10 text-white/20" />
                 </div>
               )}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-black/30" />
             </div>
 
             {/* Controls */}

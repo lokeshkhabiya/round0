@@ -114,14 +114,14 @@ const CodeIDE = ({ tool }: CodeIDEProps) => {
 	};
 
 	return (
-		<div className="w-full h-full flex flex-col">
+		<div className="w-full h-full flex flex-col rounded-2xl border border-border/60 bg-card/80 shadow-sm overflow-hidden">
 			{/* Tool Instructions (when used by agent) */}
 			{tool?.arguments?.instructions && (
-				<div className="p-4 bg-blue-50 border-b">
-					<h4 className="font-medium text-blue-900 mb-2">Instructions:</h4>
-					<p className="text-blue-800 text-sm">{tool.arguments.instructions}</p>
+				<div className="p-4 border-b border-border/70 bg-secondary/60">
+					<h4 className="font-medium mb-1">Instructions</h4>
+					<p className="text-sm text-muted-foreground">{tool.arguments.instructions}</p>
 					{tool.arguments.time_limit && (
-						<p className="text-blue-700 text-xs mt-1">
+						<p className="text-xs mt-2 text-muted-foreground">
 							Time limit: {tool.arguments.time_limit}
 						</p>
 					)}
@@ -130,8 +130,8 @@ const CodeIDE = ({ tool }: CodeIDEProps) => {
 
 			<div className="flex-1 flex">
 				<div className="w-[50%]">
-					<div className="flex justify-between items-center p-2">
-						<div className="font-bold ml-3">CODE EDITOR</div>
+					<div className="flex justify-between items-center p-2.5 border-b border-border/60 bg-muted/35">
+						<div className="font-semibold ml-1">Code Editor</div>
 						<div className="flex items-center gap-2">
 							{tool && (
 								<Badge variant="outline" className="mr-2">
@@ -139,11 +139,8 @@ const CodeIDE = ({ tool }: CodeIDEProps) => {
 								</Badge>
 							)}
 							<Select onValueChange={onSelect} value={language}>
-								<SelectTrigger className="w-[130px] bg-black text-white">
-									<SelectValue
-										placeholder="Select Language"
-										className="text-white"
-									/>
+								<SelectTrigger className="w-[150px] h-9 rounded-xl bg-background/90 border-border/70">
+									<SelectValue placeholder="Select Language" />
 								</SelectTrigger>
 								<SelectContent>
 									{languages.map(([lang, version]) => {
@@ -166,7 +163,7 @@ const CodeIDE = ({ tool }: CodeIDEProps) => {
 					/>
 				</div>
 				<div className="w-[50%]">
-					<div className="flex items-center justify-between p-2">
+					<div className="flex items-center justify-between p-2.5 border-b border-border/60 bg-muted/35">
 						<div className="flex gap-2">
 							<Button
 								className="w-[100px] h-8"
@@ -185,34 +182,35 @@ const CodeIDE = ({ tool }: CodeIDEProps) => {
 								</Button>
 							)}
 						</div>
-						<div className="font-bold mr-5">OUTPUT</div>
+						<div className="font-semibold mr-3">Output</div>
 					</div>
-					<div className="h-full border border-gray-700 bg-black text-green-400 p-4 font-mono text-sm overflow-auto relative">
-						<div className="mb-2 text-gray-500">$ output</div>
+					<div className="h-full border border-border/70 bg-muted/40 p-4 font-mono text-sm overflow-auto relative shadow-inner">
+						<div className="mb-2 text-muted-foreground">$ output</div>
 						<pre className="whitespace-pre-wrap">
 							{isLoading ? (
-								<span className="text-yellow-400">
+								<span className="text-accent">
 									Executing...
 									<span className="animate-pulse">█</span>
 								</span>
 							) : error ? (
-								<span className="text-red-400">{error}</span>
+								<span className="text-destructive">{error}</span>
 							) : output.length > 0 ? (
 								output.map((line: string, index: number) => (
 									<div key={index}>{line}</div>
 								))
 							) : (
-								"Click Run Code to see the output"
+								<span className="text-muted-foreground">Click Run Code to see output</span>
 							)}
 						</pre>
 
 						<Button
-							className="absolute bottom-4 right-4 z-10 text-black hover:text-green-400 hover:cursor-pointer text-xs"
 							variant="outline"
+							size="sm"
+							className="absolute bottom-4 right-4 z-10 text-xs"
 							onClick={handleSubmitForEvaluation}
 						>
-							<Bot className="h-12 w-12 mr-2" />
-							Submit for Evaluation
+							<Bot className="h-4 w-4 mr-1.5" />
+							Submit Evaluation
 						</Button>
 					</div>
 				</div>

@@ -28,6 +28,7 @@ const ExcalidrawWrapper = forwardRef<ExcalidrawRef, ExcalidrawWrapperProps>(
     const [Excalidraw, setExcalidraw] = useState<any>(null);
     const [excalidrawAPI, setExcalidrawAPI] = useState<any>(null);
     const [data, setData] = useState<any>(null);
+    const [excalidrawTheme, setExcalidrawTheme] = useState<"light" | "dark">("light");
     const { submitToolResult } = useConversationContext();
 
     useEffect(() => {
@@ -46,6 +47,20 @@ const ExcalidrawWrapper = forwardRef<ExcalidrawRef, ExcalidrawWrapperProps>(
         import("@excalidraw/excalidraw/index.css");
         setExcalidraw(() => comp.Excalidraw);
       });
+    }, []);
+
+    useEffect(() => {
+      if (typeof document === "undefined") return;
+      const root = document.documentElement;
+      const syncTheme = () => {
+        setExcalidrawTheme(root.classList.contains("dark") ? "dark" : "light");
+      };
+      syncTheme();
+
+      const observer = new MutationObserver(syncTheme);
+      observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+
+      return () => observer.disconnect();
     }, []);
 
     // Submit tool result when tool is provided (used in agent conversation)
@@ -122,39 +137,39 @@ const ExcalidrawWrapper = forwardRef<ExcalidrawRef, ExcalidrawWrapperProps>(
 
     if (!Excalidraw) {
       return (
-        <div className="h-full w-full flex items-center justify-center bg-gray-50">
+        <div className="h-full w-full flex items-center justify-center bg-muted/40">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading Excalidraw...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4" />
+            <p className="text-sm text-muted-foreground">Loading Excalidraw...</p>
           </div>
         </div>
       );
     }
 
     return (
-      <div className="w-full h-full bg-white relative">
+      <div className="w-full h-full bg-card relative rounded-2xl border border-border/60 overflow-hidden">
         {/* Tool Instructions (when used by agent) - Enhanced visibility */}
         {tool?.arguments?.task && (
-          <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-100 to-indigo-100 border-b-2 border-blue-200 shadow-lg z-50">
+          <div className="absolute top-0 left-0 right-0 p-4 border-b border-border/80 bg-card/95 backdrop-blur-md z-50">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <h4 className="font-semibold text-blue-900 mb-1 text-lg">System Design Task:</h4>
-                <p className="text-blue-800 text-sm font-medium">{tool.arguments.task}</p>
+                <h4 className="font-semibold mb-1 text-base">System Design Task</h4>
+                <p className="text-sm text-muted-foreground">{tool.arguments.task}</p>
               </div>
               <div className="flex items-center gap-3">
                 {tool && (
-                  <Badge variant="secondary" className="bg-blue-200 text-blue-800 font-medium">
+                  <Badge variant="secondary" className="font-medium">
                     <Bot className="h-3 w-3 mr-1" />
                     Agent Tool
                   </Badge>
                 )}
                 {tool && (
                   <Button
-                    size="lg"
+                    size="sm"
                     onClick={submitCanvas}
-                    className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                    className="flex items-center gap-1.5 shadow-sm"
                   >
-                    <Bot className="h-5 w-5" />
+                    <Bot className="h-4 w-4" />
                     Submit to Agent
                   </Button>
                 )}
@@ -167,11 +182,11 @@ const ExcalidrawWrapper = forwardRef<ExcalidrawRef, ExcalidrawWrapperProps>(
         {tool && (
           <div className="absolute bottom-6 right-6 z-50">
             <Button
-              size="lg"
+              size="sm"
               onClick={submitCanvas}
-              className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 px-6 py-3 rounded-full border-2 border-white"
+              className="flex items-center gap-1.5 rounded-full px-4 shadow-md"
             >
-              <Bot className="h-6 w-6" />
+              <Bot className="h-4 w-4" />
               Submit to Agent
             </Button>
           </div>
@@ -179,7 +194,7 @@ const ExcalidrawWrapper = forwardRef<ExcalidrawRef, ExcalidrawWrapperProps>(
 
         <div className={`w-full h-full ${tool?.arguments?.task ? 'pt-24' : ''}`}>
           <Excalidraw
-            theme="light"
+            theme={excalidrawTheme}
             UIOptions={{
               canvasActions: {
                 changeViewBackgroundColor: true,

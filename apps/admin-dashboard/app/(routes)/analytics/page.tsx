@@ -66,13 +66,13 @@ const AnalyticsPage = () => {
     const getRoleCategoryColor = (category: string) => {
         switch (category) {
             case "engineering":
-                return "bg-blue-100 text-blue-800 border-blue-200";
+                return "bg-primary/15 text-foreground border-primary/35";
             case "data_analytics":
-                return "bg-purple-100 text-purple-800 border-purple-200";
+                return "bg-secondary/85 text-secondary-foreground border-border/70";
             case "business":
-                return "bg-green-100 text-green-800 border-green-200";
+                return "bg-accent/20 text-accent-foreground border-accent/35";
             default:
-                return "bg-gray-100 text-gray-800 border-gray-200";
+                return "bg-card/80 text-muted-foreground border-border/70";
         }
     };
 
@@ -115,7 +115,7 @@ const AnalyticsPage = () => {
     return (
         <div className="min-h-screen bg-background p-4">
             {/* Header */}
-            <div className="border-b bg-white mb-4">
+            <div className="border-b border-border/55 bg-background/70 backdrop-blur-xl mb-4">
                 <div className="container mx-auto px-4 py-6">
                     <div className="flex items-center gap-3 mb-4">
                         <BarChart3 className="h-8 w-8 text-primary" />
@@ -139,7 +139,7 @@ const AnalyticsPage = () => {
                         <CardContent>
                             <div className="flex items-center justify-between">
                                 <div className="text-3xl font-bold">{analytics.totalMockInterviews}</div>
-                                <Target className="h-8 w-8 text-blue-500" />
+                                <Target className="h-8 w-8 text-primary" />
                             </div>
                         </CardContent>
                     </Card>
@@ -153,7 +153,7 @@ const AnalyticsPage = () => {
                         <CardContent>
                             <div className="flex items-center justify-between">
                                 <div className="text-3xl font-bold">{analytics.totalAttempts}</div>
-                                <Users className="h-8 w-8 text-purple-500" />
+                                <Users className="h-8 w-8 text-accent" />
                             </div>
                         </CardContent>
                     </Card>
@@ -167,7 +167,7 @@ const AnalyticsPage = () => {
                         <CardContent>
                             <div className="flex items-center justify-between">
                                 <div className="text-3xl font-bold">{analytics.averageScore}%</div>
-                                <Award className="h-8 w-8 text-green-500" />
+                                <Award className="h-8 w-8 text-foreground" />
                             </div>
                         </CardContent>
                     </Card>
@@ -181,7 +181,7 @@ const AnalyticsPage = () => {
                         <CardContent>
                             <div className="flex items-center justify-between">
                                 <div className="text-3xl font-bold">{analytics.completionRate}%</div>
-                                <TrendingUp className="h-8 w-8 text-orange-500" />
+                                <TrendingUp className="h-8 w-8 text-primary" />
                             </div>
                         </CardContent>
                     </Card>
@@ -254,12 +254,12 @@ const AnalyticsPage = () => {
                                                 <div
                                                     className={`flex items-center justify-center w-8 h-8 rounded-full font-bold ${
                                                         index === 0
-                                                            ? "bg-yellow-100 text-yellow-800"
+                                                            ? "bg-primary text-primary-foreground"
                                                             : index === 1
-                                                                ? "bg-gray-100 text-gray-800"
+                                                                ? "bg-secondary text-secondary-foreground"
                                                                 : index === 2
-                                                                    ? "bg-orange-100 text-orange-800"
-                                                                    : "bg-blue-50 text-blue-600"
+                                                                    ? "bg-accent/20 text-accent-foreground"
+                                                                    : "bg-muted text-muted-foreground"
                                                     }`}
                                                 >
                                                     {index + 1}
@@ -297,7 +297,7 @@ const AnalyticsPage = () => {
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="text-center p-4 bg-muted/50 rounded-lg">
-                                <p className="text-2xl font-bold text-green-600">
+                                <p className="text-2xl font-bold text-primary">
                                     {analytics.completedAttempts}
                                 </p>
                                 <p className="text-sm text-muted-foreground mt-1">
@@ -305,7 +305,7 @@ const AnalyticsPage = () => {
                                 </p>
                             </div>
                             <div className="text-center p-4 bg-muted/50 rounded-lg">
-                                <p className="text-2xl font-bold text-orange-600">
+                                <p className="text-2xl font-bold text-foreground">
                                     {analytics.totalAttempts - analytics.completedAttempts}
                                 </p>
                                 <p className="text-sm text-muted-foreground mt-1">
@@ -313,7 +313,7 @@ const AnalyticsPage = () => {
                                 </p>
                             </div>
                             <div className="text-center p-4 bg-muted/50 rounded-lg">
-                                <p className="text-2xl font-bold text-blue-600">
+                                <p className="text-2xl font-bold text-accent">
                                     {analytics.totalAttempts > 0
                                         ? (analytics.totalAttempts / analytics.totalMockInterviews).toFixed(1)
                                         : 0}

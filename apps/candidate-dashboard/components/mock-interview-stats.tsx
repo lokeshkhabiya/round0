@@ -95,24 +95,24 @@ export function MockInterviewStats() {
     const getRoleCategoryColor = (category: string) => {
         switch (category) {
             case "engineering":
-                return "bg-blue-100 text-blue-800 border-blue-200";
+                return "bg-primary/15 text-foreground border-primary/35";
             case "data_analytics":
-                return "bg-purple-100 text-purple-800 border-purple-200";
+                return "bg-secondary/85 text-secondary-foreground border-border/70";
             case "business":
-                return "bg-green-100 text-green-800 border-green-200";
+                return "bg-accent/20 text-accent-foreground border-accent/35";
             default:
-                return "bg-gray-100 text-gray-800 border-gray-200";
+                return "bg-card/80 text-muted-foreground border-border/70";
         }
     };
 
     const getStatusColor = (status: string) => {
         switch (status) {
             case "completed":
-                return "bg-green-100 text-green-800";
+                return "bg-primary/15 text-foreground border-primary/35";
             case "in_progress":
-                return "bg-yellow-100 text-yellow-800";
+                return "bg-secondary/85 text-secondary-foreground border-border/70";
             default:
-                return "bg-gray-100 text-gray-800";
+                return "bg-card/80 text-muted-foreground border-border/70";
         }
     };
 
@@ -135,15 +135,15 @@ export function MockInterviewStats() {
                         <p className="text-xs text-muted-foreground">Total Attempts</p>
                     </div>
                     <div className="text-center">
-                        <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 rounded-full bg-green-100">
-                            <Award className="h-6 w-6 text-green-600" />
+                        <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 rounded-full bg-accent/20">
+                            <Award className="h-6 w-6 text-accent-foreground" />
                         </div>
                         <p className="text-2xl font-bold">{stats.averageScore}</p>
                         <p className="text-xs text-muted-foreground">Avg Score</p>
                     </div>
                     <div className="text-center">
-                        <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 rounded-full bg-blue-100">
-                            <TrendingUp className="h-6 w-6 text-blue-600" />
+                        <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 rounded-full bg-secondary/85">
+                            <TrendingUp className="h-6 w-6 text-secondary-foreground" />
                         </div>
                         <p className="text-2xl font-bold">{stats.completedAttempts}</p>
                         <p className="text-xs text-muted-foreground">Completed</p>

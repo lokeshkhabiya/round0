@@ -123,7 +123,7 @@ export function LiveTranscript() {
                         <div className="p-2 rounded-lg bg-muted/50 border border-border/50 text-xs">
                           <span className="font-medium">Result: </span>
                           {message.content?.tool_result}
-                          <span className={`ml-2 ${message.content?.passed ? 'text-emerald-600' : 'text-destructive'}`}>
+                          <span className={`ml-2 ${message.content?.passed ? 'text-chart-1' : 'text-destructive'}`}>
                             {message.content?.passed ? 'Passed' : 'Failed'}
                           </span>
                         </div>

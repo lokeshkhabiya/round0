@@ -243,7 +243,7 @@ export default function CreateMockInterviewPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-white flex">
+      <div className="border-b border-border/55 bg-background/70 backdrop-blur-xl flex">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-3 mb-4">
             <ClipboardList className="h-8 w-8 text-primary" />
@@ -365,7 +365,7 @@ export default function CreateMockInterviewPage() {
                       className={`p-4 rounded-lg border-2 transition-all text-left ${
                         roleCategory === option.value
                           ? "border-primary bg-primary/5"
-                          : "border-border hover:border-gray-400"
+                          : "border-border hover:border-ring/50"
                       }`}
                     >
                       <option.icon
@@ -393,7 +393,7 @@ export default function CreateMockInterviewPage() {
                       className={`p-4 rounded-lg border-2 transition-all text-left ${
                         difficultyLevel === option.value
                           ? "border-primary bg-primary/5"
-                          : "border-border hover:border-gray-400"
+                          : "border-border hover:border-ring/50"
                       }`}
                     >
                       <p className="font-medium text-sm">{option.label}</p>
@@ -417,7 +417,7 @@ export default function CreateMockInterviewPage() {
                       className={`p-4 rounded-lg border-2 transition-all text-left flex items-start gap-3 ${
                         interviewTools.includes(tool.value)
                           ? "border-primary bg-primary/5"
-                          : "border-border hover:border-gray-400"
+                          : "border-border hover:border-ring/50"
                       }`}
                     >
                       <tool.icon
@@ -637,7 +637,7 @@ export default function CreateMockInterviewPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-green-500 hover:bg-green-600"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   {isSubmitting ? "Creating..." : "Create Mock Interview"}
                 </Button>

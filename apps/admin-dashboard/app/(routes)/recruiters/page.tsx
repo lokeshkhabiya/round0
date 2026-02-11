@@ -166,7 +166,7 @@ export default function RecruitersListing() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-white">
+      <div className="border-b border-border/55 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-3 mb-4">
             <Users className="h-8 w-8 text-primary" />
@@ -192,30 +192,30 @@ export default function RecruitersListing() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-1">
-                <Building2 className="h-4 w-4 text-blue-600" />
+                <Building2 className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">Companies</span>
               </div>
-              <p className="text-2xl font-bold text-blue-600">{stats.uniqueCompanies}</p>
+              <p className="text-2xl font-bold">{stats.uniqueCompanies}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-1">
-                <Briefcase className="h-4 w-4 text-green-600" />
+                <Briefcase className="h-4 w-4 text-accent" />
                 <span className="text-sm font-medium">Industries</span>
               </div>
-              <p className="text-2xl font-bold text-green-600">{stats.uniqueIndustries}</p>
+              <p className="text-2xl font-bold">{stats.uniqueIndustries}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-1">
-                <MapPin className="h-4 w-4 text-orange-600" />
+                <MapPin className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium">Locations</span>
               </div>
-              <p className="text-2xl font-bold text-orange-600">{stats.uniqueLocations}</p>
+              <p className="text-2xl font-bold">{stats.uniqueLocations}</p>
             </CardContent>
           </Card>
         </div>

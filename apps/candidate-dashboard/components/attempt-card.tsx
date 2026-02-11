@@ -84,10 +84,10 @@ export function AttemptCard({ attempt, attemptNumber, onViewDetails }: AttemptCa
   }
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-600"
-    if (score >= 60) return "text-yellow-600"
-    if (score >= 40) return "text-orange-600"
-    return "text-red-600"
+    if (score >= 80) return "text-primary"
+    if (score >= 60) return "text-foreground"
+    if (score >= 40) return "text-accent"
+    return "text-destructive"
   }
 
   const totalRounds = attempt.interview_session.reduce((total, session) => total + session.interview_round.length, 0)
