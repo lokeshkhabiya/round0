@@ -1,6 +1,6 @@
 # Round0 - AI-Powered Mock Interview Platform
 
-<video src="https://github.com/user-attachments/assets/7bdfd7d5-a25f-4f53-ab95-ad4ff221c467" controls muted loop playsinline style="max-width: 100%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.35);"></video>
+<video src="https://github.com/user-attachments/assets/c89e2f2d-9932-4a0c-960d-d796e76cbea7" controls muted loop playsinline style="max-width: 100%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.35);"></video>
 
 Round0 is a comprehensive mock interview platform built with Next.js, Bun, and AI technologies. The platform allows candidates to practice technical, system design, and behavioral interviews with AI-powered assessment, feedback, and mentoring.
 
